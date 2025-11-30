@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Book List{% endblock %}
+
+{% block content %}
+<h2>All Books</h2>
+<div class="row">
+    {% for book in books %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if book.image %}
+                <img src="{{ url_for('static', filename='uploads/' + book.image) }}" class="card-img-top" alt="{{ book.title }}" style="height: 400px; object-fit: cover;">
+            {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px; color: #666;">No Image</div>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text">By {{ book.author }} ({{ book.year }})</p>
+                <p class="card-text"><small class="text-muted">{{ book.genre }}</small></p>
+                <a href="{{ url_for('books.book_detail', book_id=book._id) }}" class="btn btn-info mt-auto">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
